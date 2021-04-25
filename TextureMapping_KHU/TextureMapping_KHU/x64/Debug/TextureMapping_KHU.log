@@ -1,0 +1,9 @@
+﻿  Manager.cpp
+c:\users\cvlab\desktop\project\khu_tm\texturemapping_khu\texturemapping_khu\manager.cpp(6): warning C4273: 'Manager::Manager': inconsistent dll linkage
+  c:\users\cvlab\desktop\project\khu_tm\texturemapping_khu\texturemapping_khu\manager.h(16): note: see previous definition of '{ctor}'
+c:\users\cvlab\desktop\project\khu_tm\texturemapping_khu\texturemapping_khu\manager.cpp(10): warning C4273: 'Manager::InitTextureMapper': inconsistent dll linkage
+  c:\users\cvlab\desktop\project\khu_tm\texturemapping_khu\texturemapping_khu\manager.h(19): note: see previous definition of 'InitTextureMapper'
+c:\users\cvlab\desktop\project\khu_tm\texturemapping_khu\texturemapping_khu\manager.cpp(11): warning C4930: 'TextureMapper ttt(void)': prototyped function not called (was a variable definition intended?)
+  TextureMapper.cpp
+  Generating Code...
+  TextureMapping_KHU.vcxproj -> C:\Users\cvlab\Desktop\Project\KHU_TM\TextureMapping_KHU\x64\Debug\TextureMapping_KHU.dll
