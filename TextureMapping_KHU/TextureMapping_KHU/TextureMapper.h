@@ -1,15 +1,11 @@
 #pragma once
 //#include "Manager.h"
 
-struct TexturedMesh
-{
-
-};
+#include "Def.h"
 
 class TextureMapper {
 
 
 public:
-	TextureMapper();
-	~TextureMapper();
+	int initialize(std::string tmp);
 };

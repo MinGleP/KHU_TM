@@ -1,5 +1,7 @@
 ﻿  Main.cpp
   Generating code
-  All 56 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  3 of 1511 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   TextureMapping_APP.vcxproj -> C:\Users\cvlab\Desktop\Project\KHU_TM\TextureMapping_APP\x64\Release\TextureMapping_APP.exe

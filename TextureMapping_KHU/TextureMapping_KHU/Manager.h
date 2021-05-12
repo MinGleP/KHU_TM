@@ -1,21 +1,28 @@
-#ifndef __MANAGER_H
-#define __MANAGER_H
+#pragma once
 
-#ifdef DLLEXPORT
+#ifdef TEXTUREMAPPINGKHU_EXPORTS
 #define DLL_TYPE  __declspec(dllexport)   
 #else
 #define DLL_TYPE  __declspec(dllimport)   
 #endif
 
+#include "Def.h"
 #include "TextureMapper.h"
+#include "MaterialClassifier.h"
+#include "FileManager.h"
 #include<string>
+#include<vector>
 
-namespace tmManger {
-
-class TextureMaterialManager 
+class DLL_TYPE TextureMaterialManager 
 {
 private:
-
+	TextureMapper textureMapper;
+	MaterialClassifier materialClassifier;
+	FileManager fileManager;
+	Parameter parameters;
+	TexturedMesh texturedMesh;
+	ActiveSensorInfo aInfo;
+	std::vector<ImgInfo> imgInfos;
 
 public:
 
@@ -27,12 +34,5 @@ public:
 
 };
 
-typedef void* Manager;
 
-extern "C" DLL_TYPE Manager manager();
-extern "C" DLL_TYPE int managerInit(Manager manager, std::string parameterPath);
-extern "C" DLL_TYPE int runTextureMapping(Manager manager, std::string parameterPath);
-extern "C" DLL_TYPE int runMaterialClassification(Manager manager, std::string parameterPath);
 
-}
-#endif
