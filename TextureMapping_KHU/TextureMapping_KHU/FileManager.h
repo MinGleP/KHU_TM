@@ -11,7 +11,7 @@ public:
 	int readParameter(std::string parameterPath, Parameter& parameter);
 	int loadImages(std::string imageFolder, std::vector<ImgInfo>& imgInfos);
 	int loadMesh(std::string meshPath, TexturedMesh& texturedMesh);
-	int readPassiveSensorInfo(std::string passiveInfoPath, PassiveSensorInfo& pInfo);
+	int readPassiveSensorInfo(const std::vector<std::string>& passiveInfoPath, std::vector<ImgInfo>& imgInfos);
 	int readActiveSensorInfo(std::string activeInfoPath, ActiveSensorInfo& aInfo);
 	int saveTexturedMesh(std::string outPath, const TexturedMesh& texturedMesh);
 	int loadTexturedMesh(std::string inputPath, TexturedMesh& texturedMesh);

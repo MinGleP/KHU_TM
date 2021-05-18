@@ -11,12 +11,17 @@ int TextureMaterialManager::initialize(std::string parameterPath)
 
 	fileManager.loadMesh(parameters.meshPath, texturedMesh);
 
-	// readPassiveSensorInfo Ãß°¡
+	if (parameters.psvSensorCameraParamPath != "" && parameters.psvSensorImagesParamPath != "")
+	{
+		std::vector<std::string> passiveInfoPath;
+		passiveInfoPath.push_back(parameters.psvSensorCameraParamPath);
+		passiveInfoPath.push_back(parameters.psvSensorImagesParamPath);
+		fileManager.readPassiveSensorInfo(passiveInfoPath, imgInfos);
+	}
 
 	//fileManager.readActiveSensorInfo(parameters.atvSensorParamPath, aInfo);
 
 	fileManager.loadImages(parameters.imagesFolder, imgInfos);
-
 
 	return 1;
 }

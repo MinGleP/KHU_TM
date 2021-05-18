@@ -1,6 +1,9 @@
 #pragma once
 #include<string>
 #include<vector>
+#include<opencv2/core.hpp>
+#include<opencv2/highgui.hpp>
+#include<pcl/common/eigen.h>
 
 template< class Real >
 struct Point3D
@@ -109,7 +112,12 @@ typedef struct _Parameter
 
 struct ImgInfo
 {
-
+	cv::Mat image;
+	std::string imageName;
+	uint32_t cameraID;
+	uint32_t imageID;
+	Eigen::Matrix3d K; // Calibration Matrix(Camera to Image)
+	Eigen::Matrix<double, 3, 4, Eigen::RowMajor> T; // Transpose Matrix(World to Camera)
 };
 
 struct PassiveSensorInfo
