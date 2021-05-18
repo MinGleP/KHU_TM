@@ -1,0 +1,26 @@
+﻿FileManager.obj : warning LNK4006: "class Eigen::Matrix<double,3,4,1,3,4> __cdecl composeProjectionMatrix(class Eigen::Matrix<double,4,1,0,4,1> const &,class Eigen::Matrix<double,3,1,0,3,1> const &)" (?composeProjectionMatrix@@YA?AV?$Matrix@N$02$03$00$02$03@Eigen@@AEBV?$Matrix@N$03$00$0A@$03$00@2@AEBV?$Matrix@N$02$00$0A@$02$00@2@@Z) already defined in FileManager.obj; second definition ignored
+FileManager.obj : warning LNK4006: "class Eigen::Matrix<double,4,1,0,4,1> __cdecl normalizeQuaternion(class Eigen::Matrix<double,4,1,0,4,1> const &)" (?normalizeQuaternion@@YA?AV?$Matrix@N$03$00$0A@$03$00@Eigen@@AEBV12@@Z) already defined in FileManager.obj; second definition ignored
+     Creating library C:\Users\cvlab\Desktop\Project\KHU_TM\TextureMaterialMapper\\bin\x64\Release\TextureMaterialMapper.lib and object C:\Users\cvlab\Desktop\Project\KHU_TM\TextureMaterialMapper\\bin\x64\Release\TextureMaterialMapper.exp
+C:\Users\cvlab\Desktop\Project\KHU_TM\TextureMaterialMapper\\bin\x64\Release\TextureMaterialMapper.dll : warning LNK4088: image being generated due to /FORCE option; image may not run
+  Generating code
+  1353 of 1371 functions (98.7%) were compiled, the rest were copied from previous compilation.
+    40 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  TextureMaterialMapper.vcxproj -> C:\Users\cvlab\Desktop\Project\KHU_TM\TextureMaterialMapper\\bin\x64\Release\TextureMaterialMapper.dll
+  C:Def.h
+  C:FileManager.h
+  C:framework.h
+  C:MaterialClassifier.h
+  C:pch.h
+  C:TextureMapper.h
+  C:TextureMaterialManager.h
+  7개 파일이 복사되었습니다.
+  파일을 찾을 수 없습니다-*.hpp
+  0개 파일이 복사되었습니다.
+  C:\Users\cvlab\Desktop\Project\KHU_TM\TextureMaterialMapper\\bin\x64\Release\TextureMaterialMapper.lib
+  1개 파일이 복사되었습니다.
+  C:\Users\cvlab\Desktop\Project\KHU_TM\TextureMaterialMapper\\bin\x64\Release\TextureMaterialMapper.dll
+  1개 파일이 복사되었습니다.
+  .\config\parameter.yml
+  1개 파일이 복사되었습니다.

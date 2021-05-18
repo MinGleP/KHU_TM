@@ -1,0 +1,29 @@
+%YAML:1.0
+---
+#----------------  system setup -------------------
+# 입력 형태 (1: passive sensor only, 2: active sensor only, 3: passive + active sensor)
+inputType: 1
+
+
+#----------------  path setup -------------------
+# mesh file
+meshPath: ".\\contents\\mesh\\test.ply"
+
+# texture image가 저장된 folder
+imagesFolder: ".\\contents\\images"
+
+# passive sensor 파라미터 중 camerat.txt
+psvSensorCameraParamPath: ".\\config\\camera.txt"
+
+# passive sensor 파라미터 중 images.txt
+psvSensorImagesParamPath: ".\\config\\images.txt"
+
+# passive sensor 파라미터 중 points3D.txt
+psvSensorPoints3DParamPath: ".\\config\\points3D.txt"
+
+# passive sensor 파라미터 중 ~~~.vis
+psvSensorVisParamPath: ".\\config\\test.vis"
+
+# active sensor 파라미터
+atvSensorParamPath: ".\\config\\activeSensor.txt"
+
