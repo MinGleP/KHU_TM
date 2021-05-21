@@ -105,11 +105,11 @@ TMErrCode FileManager::loadMesh(std::string meshPath, TexturedMesh& texturedMesh
 		texturedMesh.faces.push_back(fTmp);
 	}
 
-	std::cout << "Loaded Mesh Successfully ! \n";
+	std::cout << "Loaded Mesh Successfully ! \n\n";
 
 	return TM_OK;
 }
-TMErrCode FileManager::readPassiveSensorInfo(const std::vector<std::string>& passiveInfoPath, std::vector<ImgInfo>& imgInfos)
+TMErrCode FileManager::readPassiveSensorInfoBinary(const std::vector<std::string>& passiveInfoPath, std::vector<ImgInfo>& imgInfos)
 {
 	std::string cameraPath = passiveInfoPath[0];
 	std::string imagePath = passiveInfoPath[1];
@@ -149,6 +149,7 @@ TMErrCode FileManager::readPassiveSensorInfo(const std::vector<std::string>& pas
 			break;
 		default:
 			std::cout << "No Camera Model Exist ! \n";
+			return TM_ERR;
 			break;
 		}
 		kVec.at(cameraID) = K;
@@ -220,19 +221,182 @@ TMErrCode FileManager::readPassiveSensorInfo(const std::vector<std::string>& pas
 			point3D_ids.push_back(readBinaryLittleEndian<uint64_t>(&inImage));
 		}
 
-		//image.SetUp(Camera(image.CameraId()));
-		//image.SetPoints2D(points2D);
-		//for (point2D_t point2D_idx = 0; point2D_idx < image.NumPoints2D();
-		//	++point2D_idx) {
-		//	if (point3D_ids[point2D_idx] != kInvalidPoint3DId) {
-		//		image.SetPoint3DForPoint2D(point2D_idx, point3D_ids[point2D_idx]);
-		//	}
-		//}
-		//image.SetRegistered(true);
-		//reg_image_ids_.push_back(image.ImageId());
-
-		//images_.emplace(image.ImageId(), image);
 	}
+
+	std::cout << "Loaded Passive Sensor Info Successfully ! \n\n";
+	return TM_OK;
+}
+TMErrCode readPassiveSensorInfoText(const std::vector<std::string>& passiveInfoPath, std::vector<ImgInfo>& imgInfos)
+{
+	std::string cameraPath = passiveInfoPath[0];
+	std::string imagePath = passiveInfoPath[1];
+
+	std::ifstream file(cameraPath);
+	
+	if (!file.is_open())
+	{
+		std::cout << "cameras.txt Path Wrong ! \n";
+		return TM_ERR_FILE_OPEN;
+	}
+
+	std::string line;
+	std::string item;
+
+	std::vector<Eigen::Matrix3d> kTmp;
+	std::vector<uint32_t> cameraIDVec;
+	while (std::getline(file, line)) 
+	{
+		StringTrim(&line);
+
+		if (line.empty() || line[0] == '#') 
+			continue;
+		
+		std::stringstream line_stream(line);
+
+		// ID
+		std::getline(line_stream, item, ' ');
+		cameraIDVec.push_back(std::stoul(item));
+
+		// MODEL
+		std::getline(line_stream, item, ' ');
+		std::string modelID = item;
+
+		// WIDTH
+		std::getline(line_stream, item, ' ');
+		uint64_t width = std::stoll(item);
+
+		// HEIGHT
+		std::getline(line_stream, item, ' ');
+		uint64_t height = std::stoll(item);
+
+		// PARAMS
+		std::vector<double> params;
+		while (!line_stream.eof()) 
+		{
+			std::getline(line_stream, item, ' ');
+			params.push_back(std::stold(item));
+		}
+		
+		if (modelID == "PINHOLE")
+			kTmp.push_back(createIntrinsic(params[0], params[1], params[2], params[3]));
+		else if (modelID == "SIMPLE_RADIAL")
+			kTmp.push_back(createIntrinsic(params[0], params[0], params[2], params[3]));
+		else
+		{
+			std::cout << "No Camera Model Exist ! \n";
+			return TM_ERR;
+		}
+	}
+
+	// K를 CAMERA ID 에 대해 정렬
+	std::vector<Eigen::Matrix3d> kVec;
+	kVec.resize(cameraIDVec.size());
+	for (int i = 0; i < cameraIDVec.size(); i++)
+		kVec[cameraIDVec[i]] = kTmp[i];
+
+	file.close();
+
+	// Read images.txt
+	file.open(imagePath);
+	if (!file.is_open())
+	{
+		std::cout << "images.txt Path Wrong ! \n";
+		return TM_ERR_FILE_OPEN;
+	}
+
+	bool noImageInStruct;
+
+	if (imgInfos.size() == 0)
+		noImageInStruct = true;
+	else
+		noImageInStruct = false;
+
+	while (std::getline(file, line)) 
+	{
+		StringTrim(&line);
+		if (line.empty() || line[0] == '#') 
+			continue;
+
+		std::stringstream line_stream1(line);
+
+		// ID
+		std::getline(line_stream1, item, ' ');
+		const uint32_t imageID = std::stoul(item);
+
+		// QVEC (qw, qx, qy, qz)
+		Eigen::Vector4d qVec;
+		std::getline(line_stream1, item, ' ');
+		qVec(0) = std::stold(item);
+
+		std::getline(line_stream1, item, ' ');
+		qVec(1) = std::stold(item);
+
+		std::getline(line_stream1, item, ' ');
+		qVec(2) = std::stold(item);
+
+		std::getline(line_stream1, item, ' ');
+		qVec(3) = std::stold(item);
+
+		qVec = normalizeQuaternion(qVec);
+
+		// TVEC
+		Eigen::Vector3d tVec;
+		std::getline(line_stream1, item, ' ');
+		tVec(0) = std::stold(item);
+
+		std::getline(line_stream1, item, ' ');
+		tVec(1) = std::stold(item);
+
+		std::getline(line_stream1, item, ' ');
+		tVec(2) = std::stold(item);
+
+		// CAMERA_ID
+		std::getline(line_stream1, item, ' ');
+		uint32_t cameraID = std::stoul(item);
+
+		// NAME
+		std::getline(line_stream1, item, ' ');
+		std::string imageName = item;
+
+		ImgInfo infoTmp;
+		infoTmp.cameraID = cameraID;
+		infoTmp.imageID = imageID;
+		infoTmp.imageName = imageName;
+		infoTmp.T = composeProjectionMatrix(qVec, tVec);
+		infoTmp.K = kVec[cameraID];
+
+		// * * 예외처리하긴 했지만 PassiveSensor 있을때는 Image 말고 PassiveSensorInfo부터 Load 해야합니다. * *
+		if (noImageInStruct)
+		{
+			imgInfos.push_back(infoTmp);
+		}
+		else
+		{
+			std::cout << "Image Load 전에 Passive Sensor Info 부터 Load 해야함 ! !\n";
+			imgInfos[imageID] = infoTmp; 
+		}
+
+		// POINTS2D
+		if (!std::getline(file, line)) 
+			break;
+
+		StringTrim(&line);
+		std::stringstream line_stream2(line);
+
+		if (!line.empty()) 
+		{
+			while (!line_stream2.eof()) 
+			{
+				std::getline(line_stream2, item, ' '); // x
+				std::getline(line_stream2, item, ' '); // y
+				std::getline(line_stream2, item, ' '); // 3D index
+			}
+		}
+	}
+
+	file.close();
+
+	std::cout << "Loaded Passive Sensor Info Successfully ! \n\n";
 
 	return TM_OK;
 }
