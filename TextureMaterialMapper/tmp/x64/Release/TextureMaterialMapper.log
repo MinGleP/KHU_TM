@@ -3,9 +3,9 @@ FileManager.obj : warning LNK4006: "class Eigen::Matrix<double,4,1,0,4,1> __cdec
      Creating library C:\Users\cvlab\Desktop\Project\KHU_TM\TextureMaterialMapper\\bin\x64\Release\TextureMaterialMapper.lib and object C:\Users\cvlab\Desktop\Project\KHU_TM\TextureMaterialMapper\\bin\x64\Release\TextureMaterialMapper.exp
 C:\Users\cvlab\Desktop\Project\KHU_TM\TextureMaterialMapper\\bin\x64\Release\TextureMaterialMapper.dll : warning LNK4088: image being generated due to /FORCE option; image may not run
   Generating code
-  1353 of 1371 functions (98.7%) were compiled, the rest were copied from previous compilation.
-    40 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  168 of 1371 functions (12.3%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    4 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   TextureMaterialMapper.vcxproj -> C:\Users\cvlab\Desktop\Project\KHU_TM\TextureMaterialMapper\\bin\x64\Release\TextureMaterialMapper.dll
   C:Def.h

@@ -5,7 +5,6 @@
 #include "Def.h"
 #include "TextureMapper.h"
 #include "MaterialClassifier.h"
-#include "FileManager.h"
 
 class FileManager
 {

@@ -2,7 +2,7 @@
 #define NOMINMAX
 #include<vector>
 #include <string>
-#include <opencv2\opencv.hpp> //todo opencv include시켜도 application에서 사용에 문제 없는지 확인할 것
+#include <opencv2/opencv.hpp> //todo opencv include시켜도 application에서 사용에 문제 없는지 확인할 것
 #include <opencv2/highgui.hpp>
 #include<pcl/common/eigen.h>
 
